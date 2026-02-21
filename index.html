@@ -1,0 +1,1255 @@
+<!doctype html>
+<html lang="ko">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>2025 PC방 점유율 — 게임 순위</title>
+    <style>
+                .searchBar {
+            margin-left: auto;
+            display: flex;
+            gap: 8px;
+            align-items: center
+        }
+
+        .searchBar input {
+            background: var(--glass);
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            padding: 10px 12px;
+            border-radius: 10px;
+            color: inherit;
+            min-width: 220px
+        }
+
+        .searchBar select {
+            background: var(--glass);
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            padding: 10px;
+            border-radius: 10px;
+            color: inherit
+        }
+                .wrap {
+            width: 100%;
+            max-width: 1200px
+        }
+
+        header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 20px
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 700;
+            font-size: 18px
+        }
+
+        .logo .mark {
+            width: 44px;
+            height: 44px;
+            border-radius: 10px;
+            background: linear-gradient(135deg, #1fb6ff, #7e5cff);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            color: #021024
+        }
+        body {
+            margin: 0;
+            padding: 24px;
+            font-family: Inter, sans-serif;
+            background: #0f1724;
+            color: #e6eef6;
+        }
+
+        .wrap {
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        #newsBox {
+            background: rgba(255, 255, 255, 0.03);
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            margin-tom: 24px;
+        }
+
+        #newsBox h2 {
+            margin-top: 0;
+        }
+
+        #newsBox article {
+            font-size: 15px;
+            line-height: 1.6;
+        }
+
+        #grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 16px;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 8px 24px rgba(2, 6, 23, 0.6);
+        }
+
+
+        .thumb {
+            width: 100%;
+            height: 140px;
+            background: #08101a;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .thumb img {
+            width: 80%;
+            height: auto;
+            object-fit: contain;
+        }
+
+        .info {
+            padding: 12px;
+        }
+        .rankBadge {
+            display: inline-block;
+            background: linear-gradient(135deg, #0ea5a1, #6366f1);
+            color: #021024;
+            font-weight: 800;
+            padding: 4px 8px;
+            border-radius: 8px;
+            font-size: 14px;
+        }
+            .gi-wrap {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 26px;
+        }
+
+        .gi-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 14px;
+            margin-top: 14px;
+        }
+
+        .gi-card {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.04);
+            border-radius: 12px;
+            padding: 12px;
+            display: flex;
+            flex-direction: column;
+            cursor: pointer;
+        }
+
+        .gi-thumb {
+            height: 120px;
+            border-radius: 10px;
+            overflow: hidden;
+            background: #08101a;
+            margin-bottom: 10px;
+        }
+
+        .gi-thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .gi-chip {
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.05);
+            padding: 6px 10px;
+            border-radius: 999px;
+            cursor: pointer;
+            margin-right: 6px;
+        }
+
+        .gi-chip.active {
+            background: linear-gradient(120deg, #0ea5a1, #4f7df5);
+            border: none;
+        }
+
+        /* modal */
+        #modal2 {
+            position: fixed;
+            inset: 0;
+            backdrop-filter: blur(6px);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 100;
+        }
+
+        #modalPanel2 {
+            width: min(900px, 90%);
+            background: #08121c;
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid rgba(255,255,255,0.05);
+            position: relative;
+        }
+
+        #closeModal2 {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            background: transparent;
+            border: 1px solid rgba(255,255,255,0.1);
+            padding: 6px 10px;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+
+    </style>
+</head>
+
+<body>
+    <div class="wrap">
+                <header>
+            <div class="logo">
+                <div class="mark">G</div>
+                <div>
+                    <div>GameInfo</div>
+                    <div class="muted" style="font-size:12px">빠르고 깔끔한 게임 데이터 뷰</div>
+                </div>
+            </div>
+
+            <div class="searchBar">
+                <input id="searchInput" placeholder="게임 검색 (이름 / 태그)" />
+                <select id="sortSelect">
+                    <option value="popular">인기순</option>
+                    <option value="new">최신순</option>
+                    <option value="rating">평점순</option>
+                </select>
+            </div>
+        </header>
+        <section class="gi-wrap">
+            <h2 style="margin:0 0 12px;">🎮 전체 게임 필터</h2>
+
+            <!-- 검색/정렬 UI -->
+            <div style="display:flex; gap:10px; margin-bottom:14px;">
+                <input id="searchInput2" placeholder="게임 검색 (이름 / 태그)" 
+                       style="flex:1; padding:10px; border-radius:8px; border:none; background:#0d1825; color:white;" />
+                <select id="sortSelect2" style="padding:10px; background:#0d1825; color:white; border-radius:8px;">
+                    <option value="popular">인기순</option>
+                    <option value="new">최신순</option>
+                    <option value="rating">평점순</option>
+                </select>
+            </div>
+
+            <!-- 장르 필터 -->
+            <div style="margin-bottom:10px; font-size:14px; color:#9aa4b2;">장르 필터</div>
+            <div id="genreChips2" style="margin-bottom:14px; display:flex; gap:6px; flex-wrap:wrap;"></div>
+
+            <!-- 플랫폼 필터 -->
+            <div style="margin-bottom:10px; font-size:14px; color:#9aa4b2;">플랫폼 필터</div>
+            <div id="platformChips2" style="margin-bottom:14px; display:flex; gap:6px; flex-wrap:wrap;"></div>
+
+            <!-- 평점 필터 -->
+            <div style="margin-bottom:10px; font-size:14px; color:#9aa4b2;">평점</div>
+            <div>
+                <span class="gi-chip" data-min-rating="0">전체</span>
+                <span class="gi-chip" data-min-rating="80">80+</span>
+                <span class="gi-chip" data-min-rating="90">90+</span>
+            </div>
+
+            <div style="margin:16px 0 6px; color:#9aa4b2;">
+                표시 <span id="count2">0</span>개
+            </div>
+
+            <!-- 게임 목록 -->
+            <div id="grid2" class="gi-grid"></div>
+        </section>
+
+        <h2>PC방 점유율 TOP 10</h2>
+        <div id="grid"></div>
+    </div>
+        <div id="modal2">
+        <div id="modalPanel2">
+            <button id="closeModal2">닫기</button>
+            <div id="detailContent2"></div>
+        </div>
+    </div><script>
+        /* ★★★★★ GameInfo 섹션에만 적용되는 GAMES (충돌 방지) ★★★★★ */
+        const GAMES2 = [
+            { id: 1, title: 'Uncharted4', genre: ['액션','어드벤처'], platform: ['PC','PS5'], rating:92, release:'2024-11-12', summary:'액션 어드벤처.', thumb:'assets/unc.jpg' },
+            { id: 2, title: 'Ukiyo', genre: ['시뮬레이션','캐쥬얼'], platform: ['스위치','PC'], rating:85, release:'2023-06-02', summary:'탈출 시뮬레이션.', thumb:'assets/uki.jpg' },
+            { id: 3, title: 'Need for speed', genre: ['레이싱','아케이드'], platform: ['PC','Xbox'], rating:78, release:'2022-09-15', summary:'사이버펑크 테마의 레이싱.', thumb:'assets/nee.jpg' },
+            { id: 4, title: 'Valheim', genre: ['RPG','공포'], platform: ['PC','PS5','Xbox'], rating:94, release:'2025-02-20', summary:'서사 중심 대작 RPG.', thumb:'assets/valh.jpg' },
+            { id: 5, title: 'Spirit city', genre: ['음악','힐링'], platform: ['모바일','PC'], rating:88, release:'2021-12-01', summary:'음악을 들으며 힐링.', thumb:'assets/spi.jpg' }
+        ];
+
+        let state2 = { query:'', genre:null, platform:null, minRating:0, sort:'popular', filtered:[] };
+
+        const el2 = id => document.getElementById(id);
+
+        /* ▶ Chips 렌더링 */
+        function renderChips2() {
+            const genres = [...new Set(GAMES2.flatMap(g => g.genre))];
+            const platforms = [...new Set(GAMES2.flatMap(g => g.platform))];
+
+            const genreBox = el2('genreChips2');
+            genreBox.innerHTML = '';
+            genres.forEach(g => {
+                const b = document.createElement('span');
+                b.className = 'gi-chip';
+                b.textContent = g;
+                b.dataset.genre = g;
+                b.onclick = () => { state2.genre = (state2.genre === g ? null : g); updateChips2(); applyFilters2(); };
+                genreBox.appendChild(b);
+            });
+
+            const platformBox = el2('platformChips2');
+            platformBox.innerHTML = '';
+            platforms.forEach(p => {
+                const b = document.createElement('span');
+                b.className = 'gi-chip';
+                b.textContent = p;
+                b.dataset.platform = p;
+                b.onclick = () => { state2.platform = (state2.platform === p ? null : p); updateChips2(); applyFilters2(); };
+                platformBox.appendChild(b);
+            });
+
+            document.querySelectorAll('.gi-chip[data-min-rating]').forEach(b => {
+                b.onclick = () => { state2.minRating = Number(b.dataset.minRating); updateChips2(); applyFilters2(); };
+            });
+        }
+
+        /* ▶ Chips active 토글 */
+        function updateChips2() {
+            document.querySelectorAll('#genreChips2 .gi-chip').forEach(b => b.classList.toggle('active', b.dataset.genre === state2.genre));
+            document.querySelectorAll('#platformChips2 .gi-chip').forEach(b => b.classList.toggle('active', b.dataset.platform === state2.platform));
+            document.querySelectorAll('.gi-chip[data-min-rating]').forEach(b => b.classList.toggle('active', Number(b.dataset.minRating) === state2.minRating));
+        }
+
+        /* ▶ 필터 적용 */
+        function applyFilters2() {
+            let res = GAMES2.filter(g => {
+                if (state2.genre && !g.genre.includes(state2.genre)) return false;
+                if (state2.platform && !g.platform.includes(state2.platform)) return false;
+                if (g.rating < state2.minRating) return false;
+                if (state2.query) {
+                    const q = state2.query.toLowerCase();
+                    if (!g.title.toLowerCase().includes(q) && !g.summary.toLowerCase().includes(q)) return false;
+                }
+                return true;
+            });
+
+            if (state2.sort === 'new') res.sort((a,b)=> new Date(b.release)-new Date(a.release));
+            else if (state2.sort === 'rating') res.sort((a,b)=> b.rating-a.rating);
+            else res.sort((a,b)=> b.rating-a.rating);
+
+            state2.filtered = res;
+            renderGrid2();
+        }
+
+        /* ▶ 게임 목록 렌더 */
+        function renderGrid2() {
+            const grid = el2('grid2');
+            grid.innerHTML = '';
+            el2('count2').textContent = state2.filtered.length;
+
+            state2.filtered.forEach(g => {
+                const c = document.createElement('div');
+                c.className = 'gi-card';
+                c.innerHTML = `
+                    <div class="gi-thumb"><img src="${g.thumb}"></div>
+                    <div style="font-weight:700;">${g.title}</div>
+                    <div style="font-size:13px; color:#9aa4b2;">${g.genre.join(' / ')} · ${g.platform.join(', ')}</div>
+                    <div style="margin-top:6px; background:#0004; padding:4px 8px; border-radius:8px; width:min-content;">${g.rating}</div>
+                `;
+                c.onclick = () => openDetail2(g.id);
+                grid.appendChild(c);
+            });
+        }
+
+        /* ▶ 모달 */
+        function openDetail2(id) {
+            const g = GAMES2.find(x => x.id === id);
+            if (!g) return;
+
+            el2('detailContent2').innerHTML = `
+                <div style="display:flex; gap:14px;">
+                    <div style="width:300px; height:200px; overflow:hidden; border-radius:12px;">
+                        <img src="${g.thumb}" style="width:100%; height:100%; object-fit:cover;">
+                    </div>
+                    <div style="flex:1;">
+                        <h2>${g.title}</h2>
+                        <div style="color:#9aa4b2;">
+                            ${g.genre.join(', ')} · ${g.platform.join(', ')} · 평점 ${g.rating}
+                        </div>
+                        <p>${g.summary}</p>
+                    </div>
+                </div>
+            `;
+
+            el2('modal2').style.display = 'flex';
+        }
+
+        el2('closeModal2').onclick = () => el2('modal2').style.display = 'none';
+        el2('modal2').onclick = e => { if (e.target.id === 'modal2') el2('modal2').style.display = 'none'; };
+
+        /* ▶ 이벤트 */
+        el2('searchInput2').oninput = e => { state2.query = e.target.value; applyFilters2(); };
+        el2('sortSelect2').onchange = e => { state2.sort = e.target.value; applyFilters2(); };
+
+        /* ▶ 초기화 */
+        renderChips2();
+        applyFilters2();
+    </script>
+
+    <script>
+        const GAMES = [{
+                title: '리그 오브 레전드',
+                genre: 'MOBA',
+                rating: 40.08,
+                img: 'assets/lol.jpg'
+            },
+            {
+                title: '배틀그라운드',
+                genre: 'FPS / Battle Royale',
+                rating: 10.71,
+                img: 'assets/bag.jpg'
+            },
+            {
+                title: 'FC 온라인',
+                genre: '스포츠',
+                rating: 6.26,
+                img: 'assets/fifa.jpg'
+            },
+            {
+                title: '발로란트',
+                genre: 'FPS',
+                rating: 5.78,
+                img: 'assets/val.jpg'
+            },
+            {
+                title: '아이온2',
+                genre: 'MMORPG',
+                rating: 5.72,
+                img: 'assets/ion.jpg'
+            },
+            {
+                title: '서든어택',
+                genre: 'FPS',
+                rating: 4.59,
+                img: 'assets/sa.jpg'
+            },
+            {
+                title: '오버워치2',
+                genre: 'FPS',
+                rating: 4.24,
+                img: 'assets/over.jpg'
+            },
+            {
+                title: '메이플스토리',
+                genre: 'MMORPG',
+                rating: 2.15,
+                img: 'assets/map.jpg'
+            },
+            {
+                title: '던전앤파이터',
+                genre: '액션 RPG',
+                rating: 2.03,
+                img: 'assets/dnf.jpg'
+            },
+            {
+                title: '스타크래프트1',
+                genre: 'RTS',
+                rating: 1.97,
+                img: 'assets/star.jpg'
+            }
+        ];
+
+        function renderCards() {
+            const grid = document.getElementById("grid");
+            grid.innerHTML = "";
+            GAMES.forEach((g, i) => {
+                const card = document.createElement("div");
+                card.className = "card";
+                card.innerHTML = `
+          <div class="thumb">
+            <img src="${g.img}" alt="${g.title} 로고">
+          </div>
+          <div class="info">
+            <div class="rankBadge">${i+1}</div>
+            <div class="title">${g.title}</div>
+            <div class="meta">${g.genre}</div>
+            <div class="rating">${g.rating}% 점유율</div>
+          </div>
+        `;
+                grid.appendChild(card);
+            });
+        }
+
+        renderCards();
+
+    </script>
+    <!-- 신작게임 5선 섹션 시작 -->
+    <section id="new-releases" style="margin-top:32px;">
+        <div class="wrap" style="padding:20px 0;">
+            <h2 style="margin:0 0 12px; font-size:20px;">🆕 신작 게임 </h2>
+            <p style="margin:0 0 18px; color:#9aa4b2;">최근 출시되었거나 곧 출시되는 기대작 5종을 엄선해 소개합니다.</p>
+
+            <div id="releasesGrid" style="
+      display:grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px,1fr));
+      gap:16px;
+    ">
+                <!-- 카드는 JS로 채워집니다 -->
+            </div>
+        </div>
+
+        <style>
+            /* 신작 카드 스타일 (기존 디자인과 조화) */
+            .release-card {
+                background: rgba(255, 255, 255, 0.02);
+                border: 1px solid rgba(255, 255, 255, 0.04);
+                border-radius: 12px;
+                overflow: hidden;
+                display: flex;
+                flex-direction: column;
+                transition: transform .12s, box-shadow .12s;
+            }
+
+            .release-card:hover {
+                transform: translateY(-6px);
+                box-shadow: 0 12px 32px rgba(2, 6, 23, 0.8);
+            }
+
+            .release-thumb {
+                aspect-ratio: 16/9;
+                background: linear-gradient(180deg, #071022, #08131b);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .release-thumb img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                display: block;
+            }
+
+            .release-body {
+                padding: 12px;
+                display: flex;
+                flex-direction: column;
+                gap: 8px;
+            }
+
+            .release-title {
+                font-weight: 700;
+                font-size: 16px;
+                margin: 0;
+            }
+
+            .release-meta {
+                font-size: 13px;
+                color: #9aa4b2;
+                display: flex;
+                gap: 8px;
+                align-items: center;
+                flex-wrap: wrap;
+            }
+
+            .platform-pill {
+                background: rgba(255, 255, 255, 0.03);
+                padding: 4px 8px;
+                border-radius: 999px;
+                font-size: 12px;
+                color: #d6e3ef;
+                border: 1px solid rgba(255, 255, 255, 0.02);
+            }
+
+            .release-desc {
+                font-size: 13px;
+                color: #cdd9e6;
+                line-height: 1.4;
+                flex: 1;
+            }
+
+            .release-actions {
+                display: flex;
+                gap: 8px;
+                margin-top: 6px;
+            }
+
+            .btn {
+                padding: 8px 10px;
+                border-radius: 10px;
+                font-weight: 600;
+                font-size: 13px;
+                background: linear-gradient(135deg, #6366f1, #0ea5a1);
+                color: #021024;
+                border: none;
+                cursor: pointer;
+            }
+
+            .btn-outline {
+                padding: 8px 10px;
+                border-radius: 10px;
+                font-weight: 600;
+                font-size: 13px;
+                background: transparent;
+                color: #9aa4b2;
+                border: 1px solid rgba(255, 255, 255, 0.04);
+                cursor: pointer;
+            }
+
+            /* 반응형 보정 */
+            @media (max-width:520px) {
+                .release-body {
+                    padding: 10px;
+                }
+
+                .release-title {
+                    font-size: 15px;
+                }
+            }
+
+        </style>
+
+        <script>
+            // 신작 데이터 — 필요하면 수정하세요.
+            const NEW_RELEASES = [{
+                    title: '아크 레이더스',
+                    img: 'assets/arc.jpg',
+                    platforms: ['PC', '콘솔'],
+                    release: '2025-10-30',
+                    desc: '거친 환경의 지하도시 스페란자에서 스스로의 가치를 증명하세요.'
+                },
+                {
+                    title: '클레르 옵스 퀴르 33',
+                    img: 'assets/exp.jpg',
+                    platforms: ['PC', '콘솔'],
+                    release: '2025-04-24',
+                    desc: '사라지는 저주를 끊기 위해 33번째 원정대가 모험을 떠나는 이야기'
+                },
+                {
+                    title: '할로우 나이트 실크송',
+                    img: 'assets/hol.jpg',
+                    platforms: ['PC', '콘솔'],
+                    release: '2025-09-04',
+                    desc: ' 신성둥지의 공주이자 보호자인 호넷이 실과 노래가 다스리는 곳'
+                },
+                {
+                    title: '고스트 오브 요테이',
+                    img: 'assets/gos.jpg',
+                    platforms: ['콘솔'],
+                    release: '2025-10-02',
+                    desc: '일본의 북쪽 끝단, 또 한 명의 무사가 비상합니다'
+                },
+                {
+                    title: '마이크로 매니저',
+                    img: 'assets/mic.jpg',
+                    platforms: ['PC','콘솔'],
+                    release: '2025-12-12',
+                    desc: '로그라이크. 매번 달라지는 조건에서 몬스터를 처치.'
+                }
+            ];
+
+            function renderNewReleases() {
+                const grid = document.getElementById('releasesGrid');
+                grid.innerHTML = '';
+                NEW_RELEASES.forEach(r => {
+                    const card = document.createElement('article');
+                    card.className = 'release-card';
+                    card.innerHTML = `
+          <div class="release-thumb">
+            <img src="${r.img}" alt="${r.title} 이미지">
+          </div>
+          <div class="release-body">
+            <div>
+              <div class="release-title">${r.title}</div>
+              <div class="release-meta">
+                <div class="platform-pill">${r.platforms.join(' · ')}</div>
+                <div style="font-size:12px; color:#8895a3;">출시: ${r.release}</div>
+              </div>
+            </div>
+            <div class="release-desc">${r.desc}</div>
+            <div class="release-actions">
+              <button class="btn" onclick="location.href='#'">자세히 보기</button>
+              <button class="btn-outline" onclick="shareRelease('${r.title.replace(/'/g,'\\\'')}')">공유</button>
+            </div>
+          </div>
+        `;
+                    grid.appendChild(card);
+                });
+            }
+
+            function shareRelease(title) {
+                // 간단한 복사 동작(또는 Web Share API 사용)
+                const text = `신작 게임: ${title} — 자세히 보려면 사이트를 확인하세요.`;
+                if (navigator.share) {
+                    navigator.share({
+                        title,
+                        text
+                    }).catch(() => {});
+                } else {
+                    navigator.clipboard?.writeText(text).then(() => alert('정보가 클립보드에 복사되었습니다.'));
+                }
+            }
+
+            renderNewReleases();
+
+        </script>
+    </section>
+    <!-- 신작게임 5선 섹션 끝 -->
+        <!-- ===== 2025-11-26 인기 게임 뉴스 요약 섹션 시작 ===== -->
+    <section id="top-game-news" style="margin-top:40px;">
+        <div class="wrap" style="padding:22px 0;">
+            <h2 style="margin:0 0 8px; font-size:20px;">🎮 일간 인기 게임 뉴스</h2>
+            <p style="margin:0 0 16px; color:#9aa4b2;">2025년 12월 3일 기준, 게이머들 사이에서 화제가 된 최신 기사 모음입니다.</p>
+
+            <div class="news-grid" style="
+      display:grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px,1fr));
+      gap:16px;
+    ">
+                <!-- 카드 1 -->
+                <article class="news-card" style="
+        background: rgba(255,255,255,0.02);
+        border: 1px solid rgba(255,255,255,0.04);
+        border-radius:12px;
+        overflow:hidden;
+        display:flex;
+        flex-direction:column;
+        transition: transform .12s, box-shadow .12s;
+      ">
+                    <div class="thumb" style="aspect-ratio:16/9; background:#08121a;">
+                        <img src="assets/bat2.jpg" alt="Battlefield 6" style="width:100%; height:100%; object-fit:cover;">
+                    </div>
+                    <div class="body" style="padding:12px; display:flex; flex-direction:column; gap:8px;">
+                        <div class="title" style="font-weight:700; font-size:16px;">
+                            Battlefield 6, 2025 최고 판매량 기록 — 역대급 런칭
+                        </div>
+                        <div class="desc" style="font-size:13px; color:#cdd9e6; line-height:1.4;">
+                            2025년 출시된 Battlefield 6가 동시 접속자 수 및 판매량 면에서 올해 최고 기록을 갱신하며 업계 주목을 받고 있습니다. :contentReference[oaicite:1]{index=1}
+                        </div>
+                        <a href="#" style="margin-top:auto; color:#0ea5a1; font-size:13px; text-decoration:none;">기사 보기 →</a>
+                    </div>
+                </article>
+
+                <!-- 카드 2 -->
+                <article class="news-card" style="
+        background: rgba(255,255,255,0.02);
+        border: 1px solid rgba(255,255,255,0.04);
+        border-radius:12px;
+        overflow:hidden;
+        display:flex;
+        flex-direction:column;
+        transition: transform .12s, box-shadow .12s;
+      ">
+                    <div class="thumb" style="aspect-ratio:16/9; background:#08121a;">
+                        <img src="assets/ko.jpg" alt="인디게임 쇼케이스" style="width:100%; height:100%; object-fit:cover;">
+                    </div>
+                    <div class="body" style="padding:12px; display:flex; flex-direction:column; gap:8px;">
+                        <div class="title" style="font-weight:700; font-size:16px;">
+                            코리아 인디게임 쇼케이스 12월 개최 — 35개 신작 공개
+                        </div>
+                        <div class="desc" style="font-size:13px; color:#cdd9e6; line-height:1.4;">
+                            한국콘텐츠진흥원 주관 코리아 인디게임 쇼케이스 가 12월 2~4일 판교에서 열리며, 35개 인디게임이 대거 공개됩니다. 업계와 게이머 모두의 기대감이 고조 중입니다. :contentReference[oaicite:4]{index=4}
+                        </div>
+                        <a href="#" style="margin-top:auto; color:#0ea5a1; font-size:13px; text-decoration:none;">기사 보기 →</a>
+                    </div>
+                </article>
+
+                <!-- 카드 3 -->
+                <article class="news-card" style="
+        background: rgba(255,255,255,0.02);
+        border: 1px solid rgba(255,255,255,0.04);
+        border-radius:12px;
+        overflow:hidden;
+        display:flex;
+        flex-direction:column;
+        transition: transform .12s, box-shadow .12s;
+      ">
+                    <div class="thumb" style="aspect-ratio:16/9; background:#08121a;">
+                        <img src="assets/na.jpg">
+                    </div>
+                    <div class="body" style="padding:12px; display:flex; flex-direction:column; gap:8px;">
+                        <div class="title" style="font-weight:700; font-size:16px;">
+                            ‘나혼렙: 오버드라이브’ 정식 출시 — 원작 웹툰 팬 관심 폭발
+                        </div>
+                        <div class="desc" style="font-size:13px; color:#cdd9e6; line-height:1.4;">
+                            인기 웹툰 원작 게임 나혼렙: 오버드라이브 이 11월 25일 정식 출시되어, 국내외 커뮤니티에서 주목 받고 있습니다. 높은 조회수와 화제성을 기록 중입니다. :contentReference[oaicite:6]{index=6}
+                        </div>
+                        <a href="#" style="margin-top:auto; color:#0ea5a1; font-size:13px; text-decoration:none;">기사 보기 →</a>
+                    </div>
+                </article>
+
+                <!-- 카드 4 -->
+                <article class="news-card" style="
+        background: rgba(255,255,255,0.02);
+        border: 1px solid rgba(255,255,255,0.04);
+        border-radius:12px;
+        overflow:hidden;
+        display:flex;
+        flex-direction:column;
+        transition: transform .12s, box-shadow .12s;
+      ">
+                    <div class="thumb" style="aspect-ratio:16/9; background:#08121a;">
+                        <img src="assets/st.jpg" alt="출시 일정" style="width:100%; height:100%; object-fit:cover;">
+                    </div>
+                    <div class="body" style="padding:12px; display:flex; flex-direction:column; gap:8px;">
+                        <div class="title" style="font-weight:700; font-size:16px;">
+                            2025년 남은 신작 게임 — 최신 출시 일정 공개
+                        </div>
+                        <div class="desc" style="font-size:13px; color:#cdd9e6; line-height:1.4;">
+                            2025년 연말까지 출시 예정인 주요 타이틀들을 정리한 GameSpot 의 스케줄 기사가 공개되었습니다. 연말 게이밍 계획 세우기 좋은 기사입니다. :contentReference[oaicite:8]{index=8}
+                        </div>
+                        <a href="#" style="margin-top:auto; color:#0ea5a1; font-size:13px; text-decoration:none;">기사 보기 →</a>
+                    </div>
+                </article>
+
+
+            </div>
+        </div>
+
+        <style>
+            .news-card {
+                transition: transform .12s, box-shadow .12s;
+            }
+
+            .news-card:hover {
+                transform: translateY(-4px);
+                box-shadow: 0 8px 24px rgba(2, 6, 23, 0.6);
+            }
+
+            @media (max-width:520px) {
+                .news-grid {
+                    grid-template-columns: 1fr;
+                }
+            }
+
+        </style>
+    </section>
+    <!-- 🔥 요즘 핫한 게임 기사 요약 섹션 시작 -->
+    <section id="hot-game-news" style="margin-top:40px;">
+        <div class="wrap" style="padding:20px 0;">
+            <h2 style="margin:0 0 12px; font-size:20px;">주간 게임 뉴스 — 많이 본 기사 Top 5</h2>
+            <p style="margin:0 0 16px; color:#9aa4b2;">최근 게이머들이 가장 많이 읽은 인기 기사만 모아 요약해드려요.</p>
+
+            <div id="newsList" style="
+      display:flex;
+      flex-direction:column;
+      gap:16px;
+    ">
+
+                <!-- 카드 1 -->
+                <article class="news-card" style="
+        background:rgba(255,255,255,0.02);
+        border:1px solid rgba(255,255,255,0.04);
+        border-radius:12px;
+        padding:16px;
+        display:flex;
+        gap:14px;
+        transition:0.15s;
+      ">
+                    <div style="flex-shrink:0; width:120px; height:80px; border-radius:8px; overflow:hidden; background:#10151c;">
+                        <img src="assets/ion3.jpg" style="width:100%; height:100%; object-fit:cover;">
+                    </div>
+                    <div style="display:flex; flex-direction:column; gap:6px;">
+                        <div style="font-size:16px; font-weight:700;">‘출시 7일 동안 사과 방송 3번, 아이온2 연이은 문제 발생'</div>
+                        <div style="font-size:13px; color:#9aa4b2;">엔씨소프트의 MMORPG '아이온2(AION2)'가 지난 26일 세 번째 사과 방송과 함께 개선안을 발표.</div>
+                        <div style="font-size:12px; color:#6f7a86;">조회수 128,402</div>
+                    </div>
+                </article>
+
+                <!-- 카드 2 -->
+                <article class="news-card" style="
+        background:rgba(255,255,255,0.02);
+        border:1px solid rgba(255,255,255,0.04);
+        border-radius:12px;
+        padding:16px;
+        display:flex;
+        gap:14px;
+      ">
+                    <div style="flex-shrink:0; width:120px; height:80px; border-radius:8px; overflow:hidden; background:#10151c;">
+                        <img src="assets/lol2.jpg" style="width:100%; height:100%; object-fit:cover;">
+                    </div>
+                    <div style="display:flex; flex-direction:column; gap:6px;">
+                        <div style="font-size:16px; font-weight:700;">‘2026 LCK 결승전 KSPO돔에서 열린다.'</div>
+                        <div style="font-size:13px; color:#9aa4b2;">LCK를 주최하는 라이엇 게임즈는 2026년 LCK 결승전 및 MSI 대표 선발전에 대한 세부 정보를 공식 발표했다.</div>
+                        <div style="font-size:12px; color:#6f7a86;">조회수 92,014</div>
+                    </div>
+                </article>
+
+                <!-- 카드 3 -->
+                <article class="news-card" style="
+        background:rgba(255,255,255,0.02);
+        border:1px solid rgba(255,255,255,0.04);
+        border-radius:12px;
+        padding:16px;
+        display:flex;
+        gap:14px;
+      ">
+                    <div style="flex-shrink:0; width:120px; height:80px; border-radius:8px; overflow:hidden; background:#10151c;">
+                        <img src="assets/net.jpg" style="width:100%; height:100%; object-fit:cover;">
+                    </div>
+                    <div style="display:flex; flex-direction:column; gap:6px;">
+                        <div style="font-size:16px; font-weight:700;">'넷마블 PC포털 해킹, 유저 611만 명 개인정보 유출됐다.'</div>
+                        <div style="font-size:13px; color:#9aa4b2;">넷마블은 27일 바둑, 장기 등 PC게임을 서비스하는 자사 사이트 등에서 발생한 고객 및 일부 임직원 정보 유출 건에 대한 자체 조사 결과를 발표했다.
+</div>
+                        <div style="font-size:12px; color:#6f7a86;">조회수 85,991</div>
+                    </div>
+                </article>
+
+                <!-- 카드 4 -->
+                <article class="news-card" style="
+        background:rgba(255,255,255,0.02);
+        border:1px solid rgba(255,255,255,0.04);
+        border-radius:12px;
+        padding:16px;
+        display:flex;
+        gap:14px;
+      ">
+                    <div style="flex-shrink:0; width:120px; height:80px; border-radius:8px; overflow:hidden; background:#10151c;">
+                        <img src="assets/lol4.jpg" style="width:100%; height:100%; object-fit:cover;">
+                    </div>
+                    <div style="display:flex; flex-direction:column; gap:6px;">
+                        <div style="font-size:16px; font-weight:700;">월즈 우승자 T1 등장, SOOP 레드불 이벤트 리그 생중계</div>
+                        <div style="font-size:13px; color:#9aa4b2;">SOOP(숲, 전 아프리카TV)에서 '리그 오브 레전드' 2025 월즈 참가 팀의 경기가 이어진다.</div>
+                        <div style="font-size:12px; color:#6f7a86;">조회수 77,200</div>
+                    </div>
+                </article>
+
+                <!-- 카드 5 -->
+                <article class="news-card" style="
+        background:rgba(255,255,255,0.02);
+        border:1px solid rgba(255,255,255,0.04);
+        border-radius:12px;
+        padding:16px;
+        display:flex;
+        gap:14px;
+      ">
+                    <div style="flex-shrink:0; width:120px; height:80px; border-radius:8px; overflow:hidden; background:#10151c;">
+                        <img src="assets/bat.jpg" style="width:100%; height:100%; object-fit:cover;">
+                    </div>
+                    <div style="display:flex; flex-direction:column; gap:6px;">
+                        <div style="font-size:16px; font-weight:700;">‘배틀필드 6, 무료 플레이 주간 12월 5일까지 진행한다.'</div>
+                        <div style="font-size:13px; color:#9aa4b2;">2025년 최고 흥행작 중 하나로 꼽히는 '배틀필드 6'가 무료 플레이 주간을 시작했다. 이와 더불어 할인 판매도 진행한다.</div>
+                        <div style="font-size:12px; color:#6f7a86;">조회수 61,448</div>
+                    </div>
+                </article>
+
+            </div>
+        </div>
+    </section>
+    <!--  요즘 핫한 게임 기사 요약 섹션 끝 -->
+    <!-- ===== 역대 게임 순위 TOP5 섹션 시작 ===== -->
+    <section id="all-time-top5" style="margin-top:40px;">
+        <div class="wrap" style="padding:22px 0;">
+            <h2 style="margin:0 0 8px; font-size:20px;">🏆 역대 게임 순위 — TOP 5</h2>
+            <p style="margin:0 0 18px; color:#9aa4b2;">역사상 영향력과 인기, 평가를 종합해 선정한 명작 5선입니다.</p>
+
+            <div class="top5-grid" style="
+      display:grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px,1fr));
+      gap:14px;
+    ">
+                <!-- 카드 반복: 필요시 JS로 동적 생성 가능 -->
+                <article class="top-card">
+                    <div class="rank-badge">1</div>
+                    <div class="thumb">
+                        <img src="assets/tet.jpg" alt="테트리스 이미지">
+                    </div>
+                    <div class="card-body">
+                        <div class="title">테트리스 (Tetris)</div>
+                        <div class="sub">출시: 1984 · 장르: 퍼즐 · 플랫폼: 멀티</div>
+                        <div class="desc">초기 아케이드부터 모바일까지 세대를 관통하는 퍼즐 게임의 아이콘. 단순하지만 끝없는 중독성.</div>
+                    </div>
+                </article>
+
+                <article class="top-card">
+                    <div class="rank-badge">2</div>
+                    <div class="thumb">
+                        <img src="assets/sup.jpg" alt="슈퍼 마리오 이미지">
+                    </div>
+                    <div class="card-body">
+                        <div class="title">슈퍼 마리오 브라더스 (Super Mario Bros.)</div>
+                        <div class="sub">출시: 1985 · 장르: 플랫폼 · 플랫폼: NES 외</div>
+                        <div class="desc">플랫폼 게임의 기준을 세운 닌텐도의 대표작. 전 세계 수많은 게이머의 첫 게임 경험.</div>
+                    </div>
+                </article>
+
+                <article class="top-card">
+                    <div class="rank-badge">3</div>
+                    <div class="thumb">
+                        <img src="assets/min.png" alt="마인크래프트 이미지">
+                    </div>
+                    <div class="card-body">
+                        <div class="title">마인크래프트 (Minecraft)</div>
+                        <div class="sub">출시: 2011 · 장르: 샌드박스 · 플랫폼: 멀티</div>
+                        <div class="desc">창의력 기반 오픈월드 게임의 표준. 교육용 콘텐츠부터 거대한 커뮤니티 빌드까지 폭넓게 확산.</div>
+                    </div>
+                </article>
+
+                <article class="top-card">
+                    <div class="rank-badge">4</div>
+                    <div class="thumb">
+                        <img src="assets/zel.jpg" alt="젤다 BOTW 이미지">
+                    </div>
+                    <div class="card-body">
+                        <div class="title">젤다: 브레스 오브 더 와일드 (Zelda: BotW)</div>
+                        <div class="sub">출시: 2017 · 장르: 액션 어드벤처 · 플랫폼: 닌텐도 스위치</div>
+                        <div class="desc">개방형 탐험과 물리 기반 상호작용으로 현대 오픈월드 디자인에 큰 영향을 준 작품.</div>
+                    </div>
+                </article>
+
+                <article class="top-card">
+                    <div class="rank-badge">5</div>
+                    <div class="thumb">
+                        <img src="assets/gta5.jpg" alt="GTA V 이미지">
+                    </div>
+                    <div class="card-body">
+                        <div class="title">그랜드 테프트 오토 V (GTA V)</div>
+                        <div class="sub">출시: 2013 · 장르: 오픈월드 액션 · 플랫폼: 멀티</div>
+                        <div class="desc">광대한 오픈월드와 영화 같은 스토리텔링, 지속적인 온라인 지원으로 장기간 흥행.</div>
+                    </div>
+                </article>
+            </div>
+        </div>
+        
+
+        <style>
+            /* 공통 스타일 (페이지의 기존 다크 테마와 조화) */
+            .top5-grid {
+                margin-top: 8px;
+            }
+
+            .top-card {
+                position: relative;
+                background: rgba(255, 255, 255, 0.02);
+                border: 1px solid rgba(255, 255, 255, 0.04);
+                border-radius: 12px;
+                overflow: hidden;
+                display: flex;
+                flex-direction: column;
+                transition: transform .12s, box-shadow .12s;
+            }
+
+            .top-card:hover {
+                transform: translateY(-6px);
+                box-shadow: 0 12px 28px rgba(2, 6, 23, 0.7);
+            }
+
+            .rank-badge {
+                position: absolute;
+                left: 12px;
+                top: 12px;
+                background: linear-gradient(135deg, #f59e0b, #ef4444);
+                color: #021024;
+                font-weight: 800;
+                padding: 6px 10px;
+                border-radius: 999px;
+                font-size: 14px;
+                z-index: 2;
+                box-shadow: 0 6px 18px rgba(0, 0, 0, 0.5);
+            }
+
+            .thumb {
+                width: 100%;
+                aspect-ratio: 16/9;
+                background: #08121a;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .thumb img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                display: block;
+            }
+
+            .card-body {
+                padding: 12px;
+                display: flex;
+                flex-direction: column;
+                gap: 8px;
+            }
+
+            .title {
+                font-weight: 800;
+                font-size: 16px;
+            }
+
+            .sub {
+                font-size: 12px;
+                color: #9aa4b2;
+            }
+
+            .desc {
+                font-size: 13px;
+                color: #cdd9e6;
+                line-height: 1.4;
+            }
+
+            @media (max-width:520px) {
+                .card-body {
+                    padding: 10px;
+                }
+
+                .title {
+                    font-size: 15px;
+                }
+
+                .rank-badge {
+                    left: 10px;
+                    top: 10px;
+                    padding: 5px 8px;
+                    font-size: 13px;
+                }
+            }
+
+        </style>
+
+        <script>
+            // (선택) 카드 클릭 시 모달로 상세 설명을 띄우는 간단 기능
+            document.querySelectorAll('.top-card').forEach((card, idx) => {
+                card.style.cursor = 'pointer';
+                card.addEventListener('click', () => {
+                    const title = card.querySelector('.title').innerText;
+                    const desc = card.querySelector('.desc').innerText;
+                    alert(title + "\\n\\n" + desc);
+                });
+            });
+
+        </script>
+ 
+    </section>
+    <!-- ===== 역대 게임 순위 TOP5 섹션 끝 ===== -->
+    <!-- ===== 2025-11-26 인기 게임 뉴스 요약 섹션 끝 ===== -->
+    <!-- ================= Platform TOP3 + 유저후기 요약 섹션 시작 ================= -->
+    <section id="platform-top3" style="margin-top:48px;">
+        <div class="wrap" style="padding:24px 0;">
+            <h2 style="margin:0 0 8px; font-size:20px;">📊 플랫폼별 인기 / 판매 TOP 3 </h2>
+            <p style="margin:0 0 14px; color:#9aa4b2; font-size:13px;">
+                아래 순위는 각 플랫폼의 'Top Sellers / Top Charts' 및 공개된 판매 집계 자료를 종합한 예시입니다. (데이터 출처: Steam 차트/Top Sellers, Epic Games Store Top Sellers, EA/Origin 판매 집계)
+            </p>
+
+            <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(320px,1fr)); gap:18px;">
+
+                <!-- Steam -->
+                <div style="background:rgba(255,255,255,0.02); border:1px solid rgba(255,255,255,0.04); border-radius:12px; padding:14px;">
+                    <h3 style="margin:0 0 8px;">🔵 Steam — TOP 3 (대표)</h3>
+                    <ol style="margin:0 0 10px 18px; padding:0;">
+                        <li>
+                            <strong>Grand Theft Auto V (GTA V)</strong> — 장기간 스팀 인기·판매 상위권.
+                            <div class="meta" style="font-size:13px; color:#9aa4b2; margin-top:4px;">요약: 방대한 오픈월드와 꾸준한 온라인 업데이트로 오랜 시간 사랑받음.</div>
+                            <div class="review" style="margin-top:6px; font-size:13px;">유저 후기 요약: "스토리와 자유도가 최고", "온라인 콘텐츠가 답답할 때도 있지만 다시 접속하게 만드는 중독성".</div>
+                        </li>
+                        <li style="margin-top:8px;">
+                            <strong>Counter-Strike 2 / CS:GO (프랜차이즈)</strong> — 경쟁성·e스포츠 요소로 상시 높은 동시 접속자.
+                            <div class="meta" style="font-size:13px; color:#9aa4b2; margin-top:4px;">요약: FPS 장르의 표준, 경쟁 플레이 중심.</div>
+                            <div class="review" style="margin-top:6px; font-size:13px;">유저 후기 요약: "경쟁성이 좋아 연습할 동기 부여", "새 패치 후 밸런스 이슈가 종종 제기됨".</div>
+                        </li>
+                        <li style="margin-top:8px;">
+                            <strong>Monster Hunter Wilds / 또는 Monster Hunter: World</strong> — 런칭 시 폭발적 동시 접속자와 높은 판매량(신작 성과 포함).
+                            <div class="meta" style="font-size:13px; color:#9aa4b2; margin-top:4px;">요약: 협동 헌팅의 재미, 정교한 몬스터 디자인.</div>
+                            <div class="review" style="margin-top:6px; font-size:13px;">유저 후기 요약: "협동이 즐거워 파티 플레이가 핵심", "출시 초반 성능 이슈가 올라오긴 함".</div>
+                        </li>
+                    </ol>
+                    <div style="font-size:12px; color:#8895a3; margin-top:8px;">출처: Steam Top Sellers / 차트 참조. :contentReference[oaicite:2]{index=2}</div>
+                </div>
+
+                <!-- Epic Games Store -->
+                <div style="background:rgba(255,255,255,0.02); border:1px solid rgba(255,255,255,0.04); border-radius:12px; padding:14px;">
+                    <h3 style="margin:0 0 8px;">🟣 Epic Games Store — TOP 3 (대표)</h3>
+                    <ol style="margin:0 0 10px 18px; padding:0;">
+                        <li>
+                            <strong>Grand Theft Auto V (GTA V)</strong> — 에픽에서도 꾸준한 상위권 판매.
+                            <div class="meta" style="font-size:13px; color:#9aa4b2; margin-top:4px;">요약: 지속적인 온라인 서비스가 매출을 지탱.</div>
+                            <div class="review" style="margin-top:6px; font-size:13px;">유저 후기 요약: "오픈월드가 잘 짜여져 있고, 모드/커뮤니티가 풍부함", "온라인 콘텐츠로 계속 플레이하게 된다".</div>
+                        </li>
+                        <li style="margin-top:8px;">
+                            <strong>Fortnite</strong> — 무료·F2P지만 엄청난 매출(아이템 판매)과 이용자 수로 최상위.
+                            <div class="meta" style="font-size:13px; color:#9aa4b2; margin-top:4px;">요약: 시즌·콜라보 중심의 지속 수익화 모델.</div>
+                            <div class="review" style="margin-top:6px; font-size:13px;">유저 후기 요약: "짧고 상쾌한 경기", "아이템·스킨 시스템이 게임 경험에 큰 영향을 줌".</div>
+                        </li>
+                        <li style="margin-top:8px;">
+                            <strong>Cyberpunk 2077 / 또는 Alan Wake 2 / Red Dead Redemption 2 (플랫폼별로 인기작이 상이)</strong>
+                            <div class="meta" style="font-size:13px; color:#9aa4b2; margin-top:4px;">요약: 에픽 스토어 상위 판매 목록에는 GTA V, Battlefield, Cyberpunk 등 AAA 타이틀들이 반복 등장합니다.</div>
+                            <div class="review" style="margin-top:6px; font-size:13px;">유저 후기 요약: "스토리 중심 게임에서 몰입감이 좋다", "초기 버그는 패치로 개선되는 편".</div>
+                        </li>
+                    </ol>
+                    <div style="font-size:12px; color:#8895a3; margin-top:8px;">출처: Epic Games Store Top Sellers / Most Popular 목록. :contentReference[oaicite:3]{index=3}</div>
+                </div>
+
+                <!-- Origin / EA -->
+                <div style="background:rgba(255,255,255,0.02); border:1px solid rgba(255,255,255,0.04); border-radius:12px; padding:14px;">
+                    <h3 style="margin:0 0 8px;">⚫ Origin / EA — TOP 3 (프랜차이즈 기준 대표)</h3>
+                    <ol style="margin:0 0 10px 18px; padding:0;">
+                        <li>
+                            <strong>FIFA 시리즈 (예: FIFA 23 등)</strong> — EA의 대표적인 판매작(프랜차이즈 누적 판매 기준).
+                            <div class="meta" style="font-size:13px; color:#9aa4b2; margin-top:4px;">요약: 스포츠 게임 시장에서 압도적인 판매와 연간 신작 구조.</div>
+                            <div class="review" style="margin-top:6px; font-size:13px;">유저 후기 요약: "경기감·로스터 업데이트는 좋지만 과금 요소에 대한 불만도 존재".</div>
+                        </li>
+                        <li style="margin-top:8px;">
+                            <strong>The Sims 시리즈</strong> — 장기 누적 판매량이 높은 EA의 대표작.
+                            <div class="meta" style="font-size:13px; color:#9aa4b2; margin-top:4px;">요약: 창작·시뮬레이션 요소로 폭넓은 팬층 보유.</div>
+                            <div class="review" style="margin-top:6px; font-size:13px;">유저 후기 요약: "커스터마이즈 자유도가 높음", "DLC가 많아 추가비용이 들 수 있음".</div>
+                        </li>
+                        <li style="margin-top:8px;">
+                            <strong>Battlefield 시리즈 (예: Battlefield 3 / Battlefield 6 등)</strong> — 출시 시 대규모 판매·동시접속 기록을 세운 타이틀들.
+                            <div class="meta" style="font-size:13px; color:#9aa4b2; margin-top:4px;">요약: 군사 FPS의 대작으로서 대규모 전장과 멀티플레이가 강점.</div>
+                            <div class="review" style="margin-top:6px; font-size:13px;">유저 후기 요약: "맵 파괴·전투 연출이 뛰어남", "런칭 버그/밸런스 이슈가 반복되는 편".</div>
+                        </li>
+                    </ol>
+                    <div style="font-size:12px; color:#8895a3; margin-top:8px;">
+                        출처(프랜차이즈·판매 집계 참고): VGsales / EA 관련 판매 요약 자료. :contentReference[oaicite:4]{index=4}
+                    </div>
+                </div>
+
+            </div> <!-- grid end -->
+
+            <style>
+                /* 간단한 반응형/호버 스타일 */
+                #platform-top3 .wrap a {
+                    color: #0ea5a1;
+                    text-decoration: none;
+                }
+
+                #platform-top3 .wrap li {
+                    line-height: 1.4;
+                }
+
+                @media (max-width:520px) {
+                    #platform-top3 .wrap {
+                        padding: 16px 0;
+                    }
+                }
+
+            </style>
+                    <footer>
+            © 2025 GameInfo — 수정 및 재사용 자유.
+        </footer>
+        </div>
+        
+    </section>
+    <!-- ================= Platform TOP3 + 유저후기 요약 섹션 끝 ================= -->
+
+</body>
+
+</html>
